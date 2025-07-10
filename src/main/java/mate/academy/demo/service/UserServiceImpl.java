@@ -3,7 +3,6 @@ package mate.academy.demo.service;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import javax.swing.text.html.parser.Entity;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.user.CreateUserRequestDto;
 import mate.academy.demo.dto.user.UserDto;
