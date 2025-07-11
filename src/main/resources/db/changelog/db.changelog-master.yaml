@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/changes/01-add-common-entities.yaml
   - include:
       file: db/changelog/changes/02-add-roles-to-user.yaml
+  - include:
+      file: db/changelog/changes/03-add-users-projects-table.yaml

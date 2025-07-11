@@ -2,6 +2,7 @@ package mate.academy.demo.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,7 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE books SET is_deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE users SET is_deleted = true WHERE id=?")
 @SQLRestriction("is_deleted=false")
 @Table(name = "users")
 public class User implements UserDetails {
@@ -39,7 +40,13 @@ public class User implements UserDetails {
     private String firstName;
     @Column(nullable = false)
     private String lastName;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "users_projects",
+            joinColumns = {@JoinColumn(name = "userId")},
+            inverseJoinColumns = {@JoinColumn(name = "projectId")})
+    private Set<Project> projects = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = {@JoinColumn(name = "userId")},

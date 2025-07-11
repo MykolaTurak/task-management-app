@@ -3,10 +3,13 @@ package mate.academy.demo.service;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.authentication.AuthenticationDto;
 import mate.academy.demo.dto.authentication.AuthenticationRequestDto;
+import mate.academy.demo.model.User;
 import mate.academy.demo.security.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,6 +31,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public Long getCurrentUserId() {
-        return 0L;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return ((User) userDetails).getId();
     }
 }
