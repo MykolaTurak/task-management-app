@@ -44,4 +44,9 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userMapper.toDto(userRepository.save(user));
     }
+
+    @Override
+    public boolean existById(Long id) {
+        return userRepository.existsById(id);
+    }
 }

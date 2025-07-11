@@ -15,4 +15,6 @@ public interface ProjectService {
     ProjectDto update(CreateProjectRequestDto requestDto, Long id);
 
     void delete(Long id);
+
+    boolean existById(Long id);
 }

@@ -13,6 +13,6 @@ public interface ProjectMapper {
 
     ProjectDto toDto(Project project);
 
-    void updateModelFromDto(CreateProjectRequestDto requestDto, @MappingTarget Project book);
+    void updateModelFromDto(CreateProjectRequestDto requestDto, @MappingTarget Project project);
 
 }

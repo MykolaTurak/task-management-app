@@ -9,7 +9,6 @@ import mate.academy.demo.mapper.ProjectMapper;
 import mate.academy.demo.model.Project;
 import mate.academy.demo.model.User;
 import mate.academy.demo.repository.ProjectRepository;
-import mate.academy.demo.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 public class ProjectServiceImpl implements ProjectService {
     private final AuthenticationService authenticationService;
     private final ProjectRepository projectRepository;
-    private final UserRepository userRepository;
     private final ProjectMapper projectMapper;
 
     @Override
@@ -62,5 +60,10 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void delete(Long id) {
         projectRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existById(Long id) {
+        return projectRepository.existsById(id);
     }
 }
