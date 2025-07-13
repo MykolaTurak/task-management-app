@@ -75,4 +75,9 @@ public class TaskServiceImpl implements TaskService {
     public void delete(Long id) {
         taskRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existById(Long id) {
+        return taskRepository.existsById(id);
+    }
 }

@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 04-add-labels-projects-table
+      author: turakmykola
+      changes:
+        - createTable:
+            tableName: labels_projects
+            columns:
+              - column:
+                  name: project_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: label_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            columnNames: label_id, project_id
+            constraintName: pk_labels_projects
+            tableName: labels_projects
+        - addForeignKeyConstraint:
+            baseTableName: labels_projects
+            baseColumnNames: label_id
+            constraintName: fk_labels_projects_label
+            referencedTableName: labels
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: labels_projects
+            baseColumnNames: project_id
+            constraintName: fk_labels_projects_project
+            referencedTableName: projects
+            referencedColumnNames: id
+            onDelete: CASCADE
