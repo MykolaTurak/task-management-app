@@ -22,28 +22,28 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @PostMapping
-    ProjectDto save(@RequestBody CreateProjectRequestDto requestDto) {
+    public ProjectDto save(@RequestBody CreateProjectRequestDto requestDto) {
         return projectService.save(requestDto);
     }
 
     @GetMapping("/{id}")
-    ProjectDto findById(@PathVariable Long id) {
+    public ProjectDto findById(@PathVariable Long id) {
         return projectService.findById(id);
     }
 
     @GetMapping
-    Page<ProjectDto> findAll(Pageable pageable) {
+    public Page<ProjectDto> findAll(Pageable pageable) {
         return projectService.findAll(pageable);
     }
 
     @PutMapping("/{id}")
-    ProjectDto update(@RequestBody CreateProjectRequestDto requestDto,
+    public ProjectDto update(@RequestBody CreateProjectRequestDto requestDto,
                       @PathVariable Long id) {
         return projectService.update(requestDto, id);
     }
 
     @DeleteMapping("/{id}")
-    void deleteById(@PathVariable Long id) {
+    public void deleteById(@PathVariable Long id) {
         projectService.delete(id);
     }
 }

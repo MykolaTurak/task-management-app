@@ -23,28 +23,28 @@ public class TaskController {
     private final TaskService taskService;
 
     @PostMapping
-    TaskDto save(@RequestBody CreateTaskRequestDto requestDto) {
+    public TaskDto save(@RequestBody CreateTaskRequestDto requestDto) {
         return taskService.save(requestDto);
     }
 
     @GetMapping
-    Page<TaskDto> findAllByProjectId(@RequestParam Long projectId, Pageable pageable) {
+    public Page<TaskDto> findAllByProjectId(@RequestParam Long projectId, Pageable pageable) {
         return taskService.findAllByProjectId(projectId, pageable);
     }
 
     @GetMapping("/{id}")
-    TaskDto findById(@PathVariable Long id) {
+    public TaskDto findById(@PathVariable Long id) {
         return taskService.findById(id);
     }
 
     @PutMapping("/{id}")
-    TaskDto update(@RequestBody CreateTaskRequestDto requestDto,
+    public TaskDto update(@RequestBody CreateTaskRequestDto requestDto,
                    @PathVariable Long id) {
         return taskService.update(requestDto, id);
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         taskService.delete(id);
     }
 }

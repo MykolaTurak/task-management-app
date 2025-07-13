@@ -20,12 +20,12 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/registration")
-    UserDto register(@RequestBody CreateUserRequestDto createUserRequestDto) {
+    public UserDto register(@RequestBody CreateUserRequestDto createUserRequestDto) {
         return userService.create(createUserRequestDto);
     }
 
     @PostMapping("/login")
-    AuthenticationDto login(
+    public AuthenticationDto login(
             @RequestBody AuthenticationRequestDto authenticationRequestDto) {
         return authenticationService.authenticate(authenticationRequestDto);
     }
