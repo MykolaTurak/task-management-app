@@ -5,9 +5,7 @@ import mate.academy.demo.dto.task.CreateTaskRequestDto;
 import mate.academy.demo.dto.task.TaskDto;
 import mate.academy.demo.exception.EntityNotFoundException;
 import mate.academy.demo.mapper.TaskMapper;
-import mate.academy.demo.model.Project;
 import mate.academy.demo.model.Task;
-import mate.academy.demo.model.User;
 import mate.academy.demo.repository.TaskRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,15 +35,8 @@ public class TaskServiceImpl implements TaskService {
             throw new EntityNotFoundException("Can't find user with id: "
                     + taskRequestDto.getAssigneeId());
         }
-        User assignee = new User();
-        assignee.setId(taskRequestDto.getAssigneeId());
-
-        Project project = new Project();
-        project.setId(taskRequestDto.getProjectId());
 
         Task task = taskMapper.toModel(taskRequestDto);
-        task.setAssignee(assignee);
-        task.setProject(project);
 
         return taskMapper.toDto(taskRepository.save(task));
     }

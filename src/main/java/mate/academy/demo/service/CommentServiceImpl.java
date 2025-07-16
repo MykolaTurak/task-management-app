@@ -7,7 +7,6 @@ import mate.academy.demo.dto.comment.CreateCommentRequestDto;
 import mate.academy.demo.exception.EntityNotFoundException;
 import mate.academy.demo.mapper.CommentMapper;
 import mate.academy.demo.model.Comment;
-import mate.academy.demo.model.Task;
 import mate.academy.demo.model.User;
 import mate.academy.demo.repository.CommentRepository;
 import org.springframework.data.domain.Page;
@@ -19,8 +18,6 @@ import org.springframework.stereotype.Service;
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final CommentMapper commentMapper;
-    private final TaskService taskService;
-    private final UserService userService;
     private final AuthenticationService authenticationService;
     private final VerificationService verificationService;
 
@@ -37,11 +34,8 @@ public class CommentServiceImpl implements CommentService {
 
         User user = new User();
         user.setId(authenticationService.getCurrentUserId());
-        Task task = new Task();
-        task.setId(requestDto.getTaskId());
         Comment comment = commentMapper.toModel(requestDto);
         comment.setUser(user);
-        comment.setTask(task);
         comment.setTimestamp(LocalDateTime.now());
 
         return commentMapper.toDto(commentRepository.save(comment));
