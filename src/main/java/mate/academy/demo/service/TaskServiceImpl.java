@@ -20,10 +20,19 @@ public class TaskServiceImpl implements TaskService {
     private final TaskMapper taskMapper;
     private final UserService userService;
     private final ProjectService projectService;
+    private final VerificationService verificationService;
+    private final AuthenticationService authenticationService;
 
     @Override
     public TaskDto save(CreateTaskRequestDto taskRequestDto) {
         //TODO: Add telegram notification
+        if (!projectService.existById(taskRequestDto.getProjectId())) {
+            throw new EntityNotFoundException("Can't find project with id: "
+                    + taskRequestDto.getProjectId());
+        }
+
+        verificationService.isCurrentUserRelatedToProject(taskRequestDto.getProjectId());
+
         if (!userService.existById(taskRequestDto.getAssigneeId())) {
             throw new EntityNotFoundException("Can't find user with id: "
                     + taskRequestDto.getAssigneeId());
@@ -31,10 +40,6 @@ public class TaskServiceImpl implements TaskService {
         User assignee = new User();
         assignee.setId(taskRequestDto.getAssigneeId());
 
-        if (!projectService.existById(taskRequestDto.getProjectId())) {
-            throw new EntityNotFoundException("Can't find project with id: "
-                    + taskRequestDto.getProjectId());
-        }
         Project project = new Project();
         project.setId(taskRequestDto.getProjectId());
 
@@ -47,12 +52,24 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Page<TaskDto> findAllByProjectId(Long projectId, Pageable pageable) {
+        projectService.existById(projectId);
+
+        verificationService.isCurrentUserRelatedToProject(projectId);
+
         return taskRepository.findAllByProjectId(projectId, pageable)
                 .map(taskMapper::toDto);
     }
 
     @Override
     public TaskDto findById(Long id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Can't find task with id: " + id
+                ));
+
+        Long projectId = task.getProject().getId();
+        verificationService.isCurrentUserRelatedToProject(projectId);
+
         return taskMapper.toDto(taskRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Can't find task with id: " + id
@@ -66,6 +83,9 @@ public class TaskServiceImpl implements TaskService {
                         "Can't find task with id: " + id
                 ));
 
+        Long projectId = task.getProject().getId();
+        verificationService.isCurrentUserRelatedToProject(projectId);
+
         taskMapper.updateModelFromDto(createTaskRequestDto, task);
 
         return taskMapper.toDto(taskRepository.save(task));
@@ -73,6 +93,14 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void delete(Long id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Can't find task with id: " + id
+                ));
+
+        Long projectId = task.getProject().getId();
+        verificationService.isCurrentUserRelatedToProject(projectId);
+
         taskRepository.deleteById(id);
     }
 

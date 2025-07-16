@@ -19,6 +19,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final AuthenticationService authenticationService;
     private final ProjectRepository projectRepository;
     private final ProjectMapper projectMapper;
+    private final VerificationService verificationService;
 
     @Override
     public ProjectDto save(CreateProjectRequestDto requestDto) {
@@ -32,6 +33,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectDto findById(Long id) {
+        verificationService.isCurrentUserRelatedToProject(id);
+
         return projectMapper.toDto(projectRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Can't find project with id: " + id
@@ -40,13 +43,14 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Page<ProjectDto> findAll(Pageable pageable) {
-
         return projectRepository.findAllByUserId(authenticationService.getCurrentUserId(),
                 pageable).map(projectMapper::toDto);
     }
 
     @Override
     public ProjectDto update(CreateProjectRequestDto requestDto, Long id) {
+        verificationService.isCurrentUserRelatedToProject(id);
+
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Can't find project with id: " + id
@@ -59,6 +63,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void delete(Long id) {
+        verificationService.isCurrentUserRelatedToProject(id);
+
         projectRepository.deleteById(id);
     }
 

@@ -22,25 +22,18 @@ public class CommentServiceImpl implements CommentService {
     private final TaskService taskService;
     private final UserService userService;
     private final AuthenticationService authenticationService;
+    private final VerificationService verificationService;
 
     @Override
     public Page<CommentDto> findAllByTaskId(Long taskId, Pageable pageable) {
-        if (!taskService.existById(taskId)) {
-            throw new EntityNotFoundException(
-                    "Can't find task with id: " + taskId
-            );
-        }
+        verificationService.isCurrentUserRelatedToTask(taskId);
 
         return commentRepository.findAllByTaskId(taskId, pageable).map(commentMapper::toDto);
     }
 
     @Override
     public CommentDto save(CreateCommentRequestDto requestDto) {
-        if (!taskService.existById(requestDto.getTaskId())) {
-            throw new EntityNotFoundException(
-                    "Can't find task with id: " + requestDto.getTaskId()
-            );
-        }
+        verificationService.isCurrentUserRelatedToTask(requestDto.getTaskId());
 
         User user = new User();
         user.setId(authenticationService.getCurrentUserId());
@@ -56,6 +49,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void delete(Long id) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Can't find comment with id: " + id
+                ));
+        verificationService.isCurrentUserRelatedToTask(comment.getTask().getId());
+
         commentRepository.deleteById(id);
     }
 }
