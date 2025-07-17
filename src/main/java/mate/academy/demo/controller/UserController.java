@@ -1,5 +1,7 @@
 package mate.academy.demo.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.role.UpdateRoleRequestDto;
 import mate.academy.demo.dto.user.CreateUserRequestDto;
@@ -17,19 +19,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
+@Tag(name = "Users", description = "Endpoints for managing user profile and roles")
 public class UserController {
     private final UserService userService;
 
+    @Operation(summary = "Get current user",
+            description = "Returns the profile of the currently authenticated user")
     @GetMapping("/me")
     public UserDto getCurrentUser() {
         return userService.getCurrentUser();
     }
 
+    @Operation(summary = "Update current user",
+            description = "Updates the profile information of the currently authenticated user")
     @PutMapping("/me")
     public UserDto updateCurrentUser(@RequestBody CreateUserRequestDto requestDto) {
         return userService.updateCurrentUser(requestDto);
     }
 
+    @Operation(summary = "Update user role (ADMIN only)",
+            description = "Changes the role(s) of a user by ID. Requires ADMIN privileges")
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}/role")
     public UserWithRolesDto updateUserRole(@RequestBody UpdateRoleRequestDto requestDto,
