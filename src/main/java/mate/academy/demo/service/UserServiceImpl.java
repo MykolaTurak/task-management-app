@@ -101,4 +101,14 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.toDtoWithRoles(userRepository.save(user));
     }
+
+    @Override
+    public UserDto findById(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Can't find user with id: " + userId
+                ));
+        
+        return userMapper.toDto(user);
+    }
 }

@@ -19,11 +19,10 @@ public class TaskServiceImpl implements TaskService {
     private final UserService userService;
     private final ProjectService projectService;
     private final VerificationService verificationService;
-    private final AuthenticationService authenticationService;
+    private final TelegramNotificationService telegramNotificationService;
 
     @Override
     public TaskDto save(CreateTaskRequestDto taskRequestDto) {
-        //TODO: Add telegram notification
         if (!projectService.existById(taskRequestDto.getProjectId())) {
             throw new EntityNotFoundException("Can't find project with id: "
                     + taskRequestDto.getProjectId());
@@ -37,6 +36,9 @@ public class TaskServiceImpl implements TaskService {
         }
 
         Task task = taskMapper.toModel(taskRequestDto);
+
+        telegramNotificationService.sendTaskNotification(task,
+                taskRequestDto.getProjectId(), taskRequestDto.getAssigneeId());
 
         return taskMapper.toDto(taskRepository.save(task));
     }

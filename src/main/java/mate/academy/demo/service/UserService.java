@@ -15,4 +15,6 @@ public interface UserService {
     UserDto updateCurrentUser(CreateUserRequestDto createUserRequestDto);
 
     UserWithRolesDto changeUserRole(Long userId, UpdateRoleRequestDto requestDto);
+
+    UserDto findById(Long userId);
 }
