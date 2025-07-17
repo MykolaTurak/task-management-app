@@ -31,6 +31,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
+    @Getter
+    @Setter
     private String userName;
     @Column(nullable = false)
     private String password;
@@ -53,6 +55,8 @@ public class User implements UserDetails {
             inverseJoinColumns = {@JoinColumn(name = "roleId")}
     )
     private Set<Role> roles = new HashSet<>();
+    private String temporaryToken;
+    private Long telegramChatId;
     private boolean isDeleted = false;
 
     @Override
@@ -62,6 +66,6 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return userName;
     }
 }

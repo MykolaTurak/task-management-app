@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 05-add-telegram-columns-to-users
+      author: turak-mykola
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: temporary_token
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: telegram_chat_id
+                  type: bigint
+                  constraints:
+                    nullable: true

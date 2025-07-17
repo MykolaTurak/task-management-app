@@ -5,9 +5,7 @@ import mate.academy.demo.dto.task.CreateTaskRequestDto;
 import mate.academy.demo.dto.task.TaskDto;
 import mate.academy.demo.exception.EntityNotFoundException;
 import mate.academy.demo.mapper.TaskMapper;
-import mate.academy.demo.model.Project;
 import mate.academy.demo.model.Task;
-import mate.academy.demo.model.User;
 import mate.academy.demo.repository.TaskRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,39 +18,51 @@ public class TaskServiceImpl implements TaskService {
     private final TaskMapper taskMapper;
     private final UserService userService;
     private final ProjectService projectService;
+    private final VerificationService verificationService;
+    private final TelegramNotificationService telegramNotificationService;
 
     @Override
     public TaskDto save(CreateTaskRequestDto taskRequestDto) {
-        //TODO: Add telegram notification
-        if (!userService.existById(taskRequestDto.getAssigneeId())) {
-            throw new EntityNotFoundException("Can't find user with id: "
-                    + taskRequestDto.getAssigneeId());
-        }
-        User assignee = new User();
-        assignee.setId(taskRequestDto.getAssigneeId());
-
         if (!projectService.existById(taskRequestDto.getProjectId())) {
             throw new EntityNotFoundException("Can't find project with id: "
                     + taskRequestDto.getProjectId());
         }
-        Project project = new Project();
-        project.setId(taskRequestDto.getProjectId());
+
+        verificationService.isCurrentUserRelatedToProject(taskRequestDto.getProjectId());
+
+        if (!userService.existById(taskRequestDto.getAssigneeId())) {
+            throw new EntityNotFoundException("Can't find user with id: "
+                    + taskRequestDto.getAssigneeId());
+        }
 
         Task task = taskMapper.toModel(taskRequestDto);
-        task.setAssignee(assignee);
-        task.setProject(project);
+
+        telegramNotificationService.sendTaskNotification(task,
+                taskRequestDto.getProjectId(), taskRequestDto.getAssigneeId());
 
         return taskMapper.toDto(taskRepository.save(task));
     }
 
     @Override
     public Page<TaskDto> findAllByProjectId(Long projectId, Pageable pageable) {
+        projectService.existById(projectId);
+
+        verificationService.isCurrentUserRelatedToProject(projectId);
+
         return taskRepository.findAllByProjectId(projectId, pageable)
                 .map(taskMapper::toDto);
     }
 
     @Override
     public TaskDto findById(Long id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Can't find task with id: " + id
+                ));
+
+        Long projectId = task.getProject().getId();
+        verificationService.isCurrentUserRelatedToProject(projectId);
+
         return taskMapper.toDto(taskRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Can't find task with id: " + id
@@ -66,6 +76,9 @@ public class TaskServiceImpl implements TaskService {
                         "Can't find task with id: " + id
                 ));
 
+        Long projectId = task.getProject().getId();
+        verificationService.isCurrentUserRelatedToProject(projectId);
+
         taskMapper.updateModelFromDto(createTaskRequestDto, task);
 
         return taskMapper.toDto(taskRepository.save(task));
@@ -73,6 +86,14 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void delete(Long id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Can't find task with id: " + id
+                ));
+
+        Long projectId = task.getProject().getId();
+        verificationService.isCurrentUserRelatedToProject(projectId);
+
         taskRepository.deleteById(id);
     }
 

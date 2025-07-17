@@ -23,9 +23,11 @@ public class AttachmentServiceImpl implements AttachmentService {
     private final AttachmentMapper attachmentMapper;
     private final DropboxService dropboxService;
     private final TaskRepository taskRepository;
+    private final VerificationService verificationService;
 
     @Override
     public Page<AttachmentDto> findByTaskId(Long taskId, Pageable pageable) {
+        verificationService.isCurrentUserRelatedToTask(taskId);
 
         return attachmentRepository.findByTaskId(taskId, pageable)
                 .map(attachment -> {
@@ -42,6 +44,8 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     public AttachmentDto save(MultipartFile file, Long taskId) {
+        verificationService.isCurrentUserRelatedToTask(taskId);
+
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new EntityNotFoundException("Task not found"));
 

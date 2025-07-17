@@ -1,5 +1,8 @@
 package mate.academy.demo.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.authentication.AuthenticationDto;
 import mate.academy.demo.dto.authentication.AuthenticationRequestDto;
@@ -14,19 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Authentication", description = "Endpoints for user registration and login")
 @RequestMapping("/auth")
 public class AuthenticationController {
     private final UserService userService;
     private final AuthenticationService authenticationService;
 
+    @Operation(summary = "Register new user",
+            description = "Creates a new user account with provided data")
     @PostMapping("/registration")
-    public UserDto register(@RequestBody CreateUserRequestDto createUserRequestDto) {
+    public UserDto register(@Valid @RequestBody CreateUserRequestDto createUserRequestDto) {
         return userService.create(createUserRequestDto);
     }
 
+    @Operation(summary = "Login", description = "Authenticates user and returns JWT token")
     @PostMapping("/login")
     public AuthenticationDto login(
-            @RequestBody AuthenticationRequestDto authenticationRequestDto) {
+            @Valid @RequestBody AuthenticationRequestDto authenticationRequestDto) {
         return authenticationService.authenticate(authenticationRequestDto);
     }
 }

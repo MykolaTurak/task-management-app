@@ -7,3 +7,5 @@ databaseChangeLog:
       file: db/changelog/changes/03-add-users-projects-table.yaml
   - include:
       file: db/changelog/changes/04-add-labels-projects-table.yaml
+  - include:
+      file: db/changelog/changes/05-add-telegram-columns-to-users.yaml
