@@ -2,6 +2,7 @@ package mate.academy.demo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.role.UpdateRoleRequestDto;
 import mate.academy.demo.dto.user.CreateUserRequestDto;
@@ -33,7 +34,7 @@ public class UserController {
     @Operation(summary = "Update current user",
             description = "Updates the profile information of the currently authenticated user")
     @PutMapping("/me")
-    public UserDto updateCurrentUser(@RequestBody CreateUserRequestDto requestDto) {
+    public UserDto updateCurrentUser(@Valid @RequestBody CreateUserRequestDto requestDto) {
         return userService.updateCurrentUser(requestDto);
     }
 
@@ -41,7 +42,7 @@ public class UserController {
             description = "Changes the role(s) of a user by ID. Requires ADMIN privileges")
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}/role")
-    public UserWithRolesDto updateUserRole(@RequestBody UpdateRoleRequestDto requestDto,
+    public UserWithRolesDto updateUserRole(@Valid @RequestBody UpdateRoleRequestDto requestDto,
                                            @PathVariable Long id) {
         return userService.changeUserRole(id, requestDto);
     }

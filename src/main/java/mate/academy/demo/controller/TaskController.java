@@ -2,6 +2,7 @@ package mate.academy.demo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.task.CreateTaskRequestDto;
 import mate.academy.demo.dto.task.TaskDto;
@@ -27,7 +28,7 @@ public class TaskController {
 
     @Operation(summary = "Create task", description = "Create a new task in a specific project")
     @PostMapping
-    public TaskDto save(@RequestBody CreateTaskRequestDto requestDto) {
+    public TaskDto save(@Valid @RequestBody CreateTaskRequestDto requestDto) {
         return taskService.save(requestDto);
     }
 
@@ -46,7 +47,7 @@ public class TaskController {
 
     @Operation(summary = "Update task", description = "Update task details by task ID")
     @PutMapping("/{id}")
-    public TaskDto update(@RequestBody CreateTaskRequestDto requestDto,
+    public TaskDto update(@Valid @RequestBody CreateTaskRequestDto requestDto,
                    @PathVariable Long id) {
         return taskService.update(requestDto, id);
     }

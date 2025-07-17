@@ -2,6 +2,7 @@ package mate.academy.demo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.label.CreateLabelRequestDto;
 import mate.academy.demo.dto.label.LabelDto;
@@ -27,7 +28,7 @@ public class LabelController {
 
     @Operation(summary = "Create label", description = "Create a new label for a specific project")
     @PostMapping
-    LabelDto save(@RequestBody CreateLabelRequestDto requestDto) {
+    LabelDto save(@Valid @RequestBody CreateLabelRequestDto requestDto) {
         return labelService.save(requestDto);
     }
 
@@ -40,7 +41,7 @@ public class LabelController {
 
     @Operation(summary = "Update label", description = "Update label details by label ID")
     @PutMapping("/{id}")
-    LabelDto update(@RequestBody CreateLabelRequestDto requestDto,
+    LabelDto update(@Valid @RequestBody CreateLabelRequestDto requestDto,
                     @PathVariable Long id) {
         return labelService.update(requestDto, id);
     }

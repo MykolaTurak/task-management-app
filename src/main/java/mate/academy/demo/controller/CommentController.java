@@ -2,6 +2,7 @@ package mate.academy.demo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.comment.CommentDto;
 import mate.academy.demo.dto.comment.CreateCommentRequestDto;
@@ -33,7 +34,7 @@ public class CommentController {
 
     @Operation(summary = "Create comment", description = "Add a new comment to a task")
     @PostMapping
-    public CommentDto save(@RequestBody CreateCommentRequestDto requestDto) {
+    public CommentDto save(@Valid @RequestBody CreateCommentRequestDto requestDto) {
         return commentService.save(requestDto);
     }
 

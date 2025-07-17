@@ -2,6 +2,7 @@ package mate.academy.demo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.project.CreateProjectRequestDto;
 import mate.academy.demo.dto.project.ProjectDto;
@@ -26,7 +27,7 @@ public class ProjectController {
 
     @Operation(summary = "Create project", description = "Create a new project")
     @PostMapping
-    public ProjectDto save(@RequestBody CreateProjectRequestDto requestDto) {
+    public ProjectDto save(@Valid @RequestBody CreateProjectRequestDto requestDto) {
         return projectService.save(requestDto);
     }
 
@@ -45,7 +46,7 @@ public class ProjectController {
 
     @Operation(summary = "Update project", description = "Update an existing project by ID")
     @PutMapping("/{id}")
-    public ProjectDto update(@RequestBody CreateProjectRequestDto requestDto,
+    public ProjectDto update(@Valid @RequestBody CreateProjectRequestDto requestDto,
                       @PathVariable Long id) {
         return projectService.update(requestDto, id);
     }
