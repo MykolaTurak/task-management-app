@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import mate.academy.demo.model.Priority;
@@ -11,6 +12,7 @@ import mate.academy.demo.model.TaskStatus;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class CreateTaskRequestDto {
     @NotBlank(message = "Task name must not be blank")
     private String name;

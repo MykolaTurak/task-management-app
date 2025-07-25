@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 
         Role role = roleRepository.findByName(requestDto.getRoleName())
                 .orElseThrow(() -> new EntityNotFoundException(
-                        "Can't find role with name: " + RoleName.USER.name()
+                        "Can't find role with name: " + requestDto.getRoleName()
                 ));
 
         if (user.getRoles().contains(role)) {

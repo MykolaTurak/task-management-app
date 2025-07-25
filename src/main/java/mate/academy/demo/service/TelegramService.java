@@ -8,6 +8,7 @@ import mate.academy.demo.model.User;
 import mate.academy.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -109,5 +110,9 @@ public class TelegramService extends TelegramLongPollingBot {
     @Override
     public String getBotToken() {
         return botToken;
+    }
+
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
     }
 }

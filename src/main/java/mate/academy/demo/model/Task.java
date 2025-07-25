@@ -38,4 +38,21 @@ public class Task {
     @ManyToOne(fetch = FetchType.LAZY)
     private User assignee;
     private boolean isDeleted = false;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Task)) {
+            return false;
+        }
+        Task other = (Task) o;
+        return id != null && id.equals(other.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

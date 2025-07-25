@@ -1,12 +1,14 @@
 package mate.academy.demo.dto.project;
 
 import java.time.LocalDateTime;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import mate.academy.demo.model.ProjectStatus;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class ProjectDto {
     private Long id;
     private String name;
