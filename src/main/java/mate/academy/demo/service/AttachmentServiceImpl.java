@@ -57,9 +57,7 @@ public class AttachmentServiceImpl implements AttachmentService {
             attachment.setFilename(file.getOriginalFilename());
             attachment.setUpload(LocalDateTime.now());
 
-            attachmentRepository.save(attachment);
-
-            return attachmentMapper.toDto(attachment);
+            return attachmentMapper.toDto(attachmentRepository.save(attachment));
         } catch (Exception e) {
             throw new RuntimeException("Failed to upload file", e);
         }

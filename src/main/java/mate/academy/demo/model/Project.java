@@ -45,4 +45,21 @@ public class Project {
     )
     private Set<User> users = new HashSet<>();
     private boolean isDeleted = false;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Project)) {
+            return false;
+        }
+        Project other = (Project) o;
+        return id != null && id.equals(other.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

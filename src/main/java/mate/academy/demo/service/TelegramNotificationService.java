@@ -22,6 +22,7 @@ public class TelegramNotificationService {
     private final UserService userService;
     private final UserRepository userRepository;
     private final ProjectService projectService;
+    private final TelegramService telegramService;
 
     @Value("${telegram.bot.token}")
     private String botToken;
@@ -52,7 +53,7 @@ public class TelegramNotificationService {
         payload.put("parse_mode", "Markdown");
 
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = telegramService.getRestTemplate();
         String url = String.format("https://api.telegram.org/bot%s/sendMessage", botToken);
         restTemplate.postForObject(url, request, String.class);
     }

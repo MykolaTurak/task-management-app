@@ -11,6 +11,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.util.Set;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
@@ -19,6 +20,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode
 @SQLDelete(sql = "UPDATE labels SET is_deleted = true WHERE id=?")
 @SQLRestriction("is_deleted=false")
 @Table(name = "labels")
@@ -37,4 +39,21 @@ public class Label {
             inverseJoinColumns = {@JoinColumn(name = "project_id")})
     private Set<Project> projects;
     private boolean isDeleted = false;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Label)) {
+            return false;
+        }
+        Label other = (Label) o;
+        return id != null && id.equals(other.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

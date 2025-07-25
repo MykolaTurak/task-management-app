@@ -4,12 +4,14 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import mate.academy.demo.model.ProjectStatus;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class CreateProjectRequestDto {
     @NotBlank(message = "Project name must not be blank")
     private String name;

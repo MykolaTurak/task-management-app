@@ -63,10 +63,7 @@ public class TaskServiceImpl implements TaskService {
         Long projectId = task.getProject().getId();
         verificationService.isCurrentUserRelatedToProject(projectId);
 
-        return taskMapper.toDto(taskRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "Can't find task with id: " + id
-                )));
+        return taskMapper.toDto(task);
     }
 
     @Override
