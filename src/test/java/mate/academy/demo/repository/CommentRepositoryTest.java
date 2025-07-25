@@ -4,7 +4,6 @@ import static mate.academy.demo.util.TestUtil.getFirstComment;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
-import mate.academy.demo.config.CustomMySqlContainer;
 import mate.academy.demo.model.Comment;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,20 +13,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.jdbc.Sql;
-import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @DataJpaTest
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class CommentRepositoryTest {
-    @Container
-    private static MySQLContainer<?> mysql = CustomMySqlContainer.getInstance()
-            .withUsername("user")
-            .withPassword("password")
-            .withDatabaseName("testdb");
-
     @Autowired
     private CommentRepository commentRepository;
 

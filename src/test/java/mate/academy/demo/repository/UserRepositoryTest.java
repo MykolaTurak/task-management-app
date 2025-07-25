@@ -5,7 +5,6 @@ import static mate.academy.demo.util.TestUtil.getThirdUser;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Optional;
-import mate.academy.demo.config.CustomMySqlContainer;
 import mate.academy.demo.model.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
-import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @DataJpaTest
@@ -23,12 +20,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 class UserRepositoryTest {
     private static final String NON_EXIST_EMAIL = "non.exist@example.com";
     private static final String NON_EXIST_TOKEN = "non_exist_token";
-
-    @Container
-    private static MySQLContainer<?> mysql = CustomMySqlContainer.getInstance()
-            .withUsername("user")
-            .withPassword("password")
-            .withDatabaseName("testdb");
 
     @Autowired
     private UserRepository userRepository;
