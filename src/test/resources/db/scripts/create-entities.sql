@@ -1,5 +1,5 @@
 INSERT INTO users (id, user_name, password, email, first_name, last_name, is_deleted, temporary_token, telegram_chat_id) VALUES
-(1, 'test_user', 'test_password', 'test@example.com', 'Test', 'User', 0, NULL, NULL),
+(1, 'test_user', '$2a$10$RrhM5OKejkvKRHsB05Ee6eQZtxqs1eCVpT9gmoS6AFoCWzaKJHpsi', 'test@example.com', 'Test', 'User', 0, NULL, NULL),
 (2, 'alice', 'alice_pass', 'alice@example.com', 'Alice', 'Wonder', 0, NULL, 1234567890),
 (3, 'bob', 'bob_pass', 'bob@example.com', 'Bob', 'Builder', 0, 'temp_token_abc', NULL);
 
@@ -21,7 +21,7 @@ INSERT INTO attachments (id, task_id, drop_box_file_id, filename, upload, is_del
 (4, 3, 'dbx101jkl', 'payment_flowchart.pdf', '2025-07-25 11:30:00', 0);
 
 INSERT INTO comments (id, task_id, user_id, text, timestamp, is_deleted) VALUES
-(1, 1, 1, 'Please update the UI to match the new guidelines.', '2025-07-21 14:00:00', 0),
+(1, 1, 1, 'Fixed issue #45 and #46.', '2025-07-21 14:00:00', 0),
 (2, 2, 2, 'Mockups look good, ready for review.', '2025-07-11 16:30:00', 0),
 (3, 3, 3, 'Stripe integration almost complete.', '2025-07-26 10:15:00', 0),
 (4, 4, 2, 'Fixed issue #45 and #46.', '2025-07-09 18:00:00', 0);

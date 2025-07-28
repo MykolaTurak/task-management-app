@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "75d08806-1994-4cfa-bcdf-ad6abafadd9e",
+		"name": "Label",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43662475",
+		"_collection_link": "https://mykola-1410393.postman.co/workspace/task-management-project~fed32b89-8ba7-48c1-a021-43a49ff0d4cc/collection/43662475-75d08806-1994-4cfa-bcdf-ad6abafadd9e?action=share&source=collection_link&creator=43662475"
+	},
+	"item": [
+		{
+			"name": "save",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc1MjQyNDE0NCwiZXhwIjoxNzUyNDI3NzQ0fQ.XvgUXS-W78yJXItq3n91pVpGr9bj24NitjKqMXClm-_9G8NfIcVTCxDmoVCTjFAv",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"test\",\n    \"color\": \"testColor\",\n    \"projectsId\": {\"2\"}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/labels",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"labels"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllByProjectId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/labels?projectId=2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"labels"
+					],
+					"query": [
+						{
+							"key": "projectId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"\",\n    \"color\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/labels/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"labels",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/labels/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"labels",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

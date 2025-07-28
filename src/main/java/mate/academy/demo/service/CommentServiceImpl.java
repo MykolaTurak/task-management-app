@@ -1,5 +1,6 @@
 package mate.academy.demo.service;
 
+import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.comment.CommentDto;
@@ -29,6 +30,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public CommentDto save(CreateCommentRequestDto requestDto) {
         verificationService.isCurrentUserRelatedToTask(requestDto.getTaskId());
 

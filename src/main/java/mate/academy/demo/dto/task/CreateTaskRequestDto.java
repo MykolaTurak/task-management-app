@@ -3,6 +3,7 @@ package mate.academy.demo.dto.task;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class CreateTaskRequestDto {
     private LocalDateTime dueDate;
 
     @NotNull(message = "Project ID must not be null")
+    @Positive(message = "Task ID must be greater than 0")
     private Long projectId;
 
     @NotNull(message = "Assignee ID must not be null")

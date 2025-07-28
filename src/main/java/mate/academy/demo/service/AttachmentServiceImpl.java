@@ -1,5 +1,6 @@
 package mate.academy.demo.service;
 
+import jakarta.transaction.Transactional;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
@@ -43,6 +44,8 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     }
 
+    @Override
+    @Transactional
     public AttachmentDto save(MultipartFile file, Long taskId) {
         verificationService.isCurrentUserRelatedToTask(taskId);
 

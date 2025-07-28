@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "ee34540e-0852-41b6-bf11-c194e40e8389",
+		"name": "Attachment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43662475",
+		"_collection_link": "https://mykola-1410393.postman.co/workspace/task-management-project~fed32b89-8ba7-48c1-a021-43a49ff0d4cc/collection/43662475-ee34540e-0852-41b6-bf11-c194e40e8389?action=share&source=collection_link&creator=43662475"
+	},
+	"item": [
+		{
+			"name": "save",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc1MjQzNjA5MCwiZXhwIjoxNzUyNDM5NjkwfQ.jwbsJx2-MKva2NkXapSz9n-REj23-6sG6B_4Sy7BPvqEbgWqPEJotapymBOtaf25",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "taskId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/turakmikola/Desktop/c9a.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/attachments?taskId=2&file=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"attachments"
+					],
+					"query": [
+						{
+							"key": "taskId",
+							"value": "2"
+						},
+						{
+							"key": "file",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllByTasktId",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

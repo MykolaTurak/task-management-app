@@ -38,7 +38,7 @@ public class TestUtil {
     public static User getFirstUser() {
         User user = new User();
         user.setId(1L);
-        user.setUserName("test_user");
+        user.setUserName("test@example.com");
         user.setPassword("test_password");
         user.setEmail("test@example.com");
         user.setFirstName("Test");
@@ -93,30 +93,6 @@ public class TestUtil {
         return project;
     }
 
-    public static Project getSecondProject() {
-        Project project = new Project();
-        project.setId(2L);
-        project.setName("New Website");
-        project.setDescription("Development of new company website");
-        project.setStartDate(LocalDateTime.of(2025, 6, 15, 9, 0));
-        project.setEndDate(LocalDateTime.of(2025, 9, 30, 17, 0));
-        project.setStatus(ProjectStatus.COMPLETED);
-        project.setDeleted(false);
-        return project;
-    }
-
-    public static Project getThirdProject() {
-        Project project = new Project();
-        project.setId(3L);
-        project.setName("Mobile App");
-        project.setDescription("Mobile application for e-commerce");
-        project.setStartDate(LocalDateTime.of(2025, 7, 20, 12, 0));
-        project.setEndDate(LocalDateTime.of(2025, 10, 10, 18, 0));
-        project.setStatus(ProjectStatus.IN_PROGRESS);
-        project.setDeleted(false);
-        return project;
-    }
-
     public static Task getFirstTask() {
         Task task = new Task();
         task.setId(1L);
@@ -127,34 +103,6 @@ public class TestUtil {
         task.setDueDate(LocalDateTime.of(2025, 8, 1, 18, 0));
         task.setProject(getFirstProject());
         task.setAssignee(getFirstUser());
-        task.setDeleted(false);
-        return task;
-    }
-
-    public static Task getSecondTask() {
-        Task task = new Task();
-        task.setId(2L);
-        task.setName("Design landing page");
-        task.setDescription("Create mockups and prototypes");
-        task.setPriority(Priority.MEDIUM);
-        task.setStatus(TaskStatus.IN_PROGRESS);
-        task.setDueDate(LocalDateTime.of(2025, 7, 15, 12, 0));
-        task.setProject(getSecondProject());
-        task.setAssignee(getSecondUser());
-        task.setDeleted(false);
-        return task;
-    }
-
-    public static Task getThirdTask() {
-        Task task = new Task();
-        task.setId(3L);
-        task.setName("Implement payment gateway");
-        task.setDescription("Integrate Stripe API");
-        task.setPriority(Priority.HIGH);
-        task.setStatus(TaskStatus.NOT_STARTED);
-        task.setDueDate(LocalDateTime.of(2025, 8, 20, 18, 0));
-        task.setProject(getThirdProject());
-        task.setAssignee(getThirdUser());
         task.setDeleted(false);
         return task;
     }
@@ -195,68 +143,13 @@ public class TestUtil {
         return attachment;
     }
 
-    public static Attachment getThirdAttachment() {
-        Attachment attachment = new Attachment();
-        attachment.setId(3L);
-        attachment.setTask(getSecondTask());
-        attachment.setDropBoxFileId("dbx789ghi");
-        attachment.setFilename("landing_page_sketch.jpg");
-        attachment.setUpload(LocalDateTime.of(2025, 7, 10, 9, 0));
-        attachment.setDeleted(false);
-        return attachment;
-    }
-
-    public static Attachment getFourthAttachment() {
-        Attachment attachment = new Attachment();
-        attachment.setId(4L);
-        attachment.setTask(getThirdTask());
-        attachment.setDropBoxFileId("dbx101jkl");
-        attachment.setFilename("payment_flowchart.pdf");
-        attachment.setUpload(LocalDateTime.of(2025, 7, 25, 11, 30));
-        attachment.setDeleted(false);
-        return attachment;
-    }
-
     public static Comment getFirstComment() {
         Comment comment = new Comment();
         comment.setId(1L);
         comment.setTask(getFirstTask());
         comment.setUser(getFirstUser());
-        comment.setText("Please update the UI to match the new guidelines.");
-        comment.setTimestamp(LocalDateTime.of(2025, 7, 21, 14, 0));
-        comment.setDeleted(false);
-        return comment;
-    }
-
-    public static Comment getSecondComment() {
-        Comment comment = new Comment();
-        comment.setId(2L);
-        comment.setTask(getSecondTask());
-        comment.setUser(getSecondUser());
-        comment.setText("Mockups look good, ready for review.");
-        comment.setTimestamp(LocalDateTime.of(2025, 7, 11, 16, 30));
-        comment.setDeleted(false);
-        return comment;
-    }
-
-    public static Comment getThirdComment() {
-        Comment comment = new Comment();
-        comment.setId(3L);
-        comment.setTask(getThirdTask());
-        comment.setUser(getThirdUser());
-        comment.setText("Stripe integration almost complete.");
-        comment.setTimestamp(LocalDateTime.of(2025, 7, 26, 10, 15));
-        comment.setDeleted(false);
-        return comment;
-    }
-
-    public static Comment getFourthComment() {
-        Comment comment = new Comment();
-        comment.setId(4L);
-        comment.setTask(getFourthTask());
-        comment.setUser(getSecondUser());
         comment.setText("Fixed issue #45 and #46.");
-        comment.setTimestamp(LocalDateTime.of(2025, 7, 9, 18, 0));
+        comment.setTimestamp(LocalDateTime.of(2025, 7, 21, 14, 0));
         comment.setDeleted(false);
         return comment;
     }
@@ -276,24 +169,6 @@ public class TestUtil {
         label.setId(2L);
         label.setName("Backend");
         label.setColor("#33c4ff");
-        label.setDeleted(false);
-        return label;
-    }
-
-    public static Label getThirdLabel() {
-        Label label = new Label();
-        label.setId(3L);
-        label.setName("Bug");
-        label.setColor("#ff3333");
-        label.setDeleted(false);
-        return label;
-    }
-
-    public static Label getFourthLabel() {
-        Label label = new Label();
-        label.setId(4L);
-        label.setName("Feature");
-        label.setColor("#33ff77");
         label.setDeleted(false);
         return label;
     }
@@ -320,18 +195,10 @@ public class TestUtil {
         return dto;
     }
 
-    public static AttachmentDto getSecondAttachmentDto() {
-        AttachmentDto dto = new AttachmentDto();
-        dto.setTaskId(1L);
-        dto.setFilename("specifications.pdf");
-        dto.setFile("Mock file content 2".getBytes());
-        return dto;
-    }
-
     public static AuthenticationRequestDto getValidAuthRequestDto() {
         AuthenticationRequestDto dto = new AuthenticationRequestDto();
-        dto.setEmail("user@example.com");
-        dto.setPassword("securePassword123");
+        dto.setEmail("test@example.com");
+        dto.setPassword("test_password");
         return dto;
     }
 
@@ -343,7 +210,7 @@ public class TestUtil {
         CommentDto dto = new CommentDto();
         dto.setId(1L);
         dto.setText("Fixed issue #45 and #46.");
-        dto.setTimestamp(LocalDateTime.of(2025, 7, 9, 18, 0));
+        dto.setTimestamp(LocalDateTime.of(2025, 7, 21, 14, 0));
         dto.setTaskId(1L);
         dto.setUserId(1L);
 
@@ -358,11 +225,21 @@ public class TestUtil {
         return requestDto;
     }
 
-    public static LabelDto getLabelDto() {
+    public static LabelDto getFirstLabelDto() {
         LabelDto dto = new LabelDto();
         dto.setId(1L);
         dto.setName("Frontend");
         dto.setColor("#ff5733");
+        dto.setProjectsId(Set.of(1L));
+
+        return dto;
+    }
+
+    public static LabelDto getSecondLabelDto() {
+        LabelDto dto = new LabelDto();
+        dto.setId(2L);
+        dto.setName("Backend");
+        dto.setColor("#33c4ff");
         dto.setProjectsId(Set.of(1L));
 
         return dto;
@@ -428,7 +305,7 @@ public class TestUtil {
     public static UserDto getUserDto() {
         UserDto dto = new UserDto();
         dto.setId(1L);
-        dto.setUsername("test_user");
+        dto.setUsername("test@example.com");
         dto.setEmail("test@example.com");
         dto.setFirstName("Test");
         dto.setLastName("User");
@@ -437,7 +314,7 @@ public class TestUtil {
 
     public static CreateUserRequestDto getUserRequestDto() {
         CreateUserRequestDto requestDto = new CreateUserRequestDto();
-        requestDto.setUserName("test_user");
+        requestDto.setUserName("test@example.com");
         requestDto.setEmail("test@example.com");
         requestDto.setFirstName("Test");
         requestDto.setLastName("User");
@@ -449,7 +326,7 @@ public class TestUtil {
     public static UserWithRolesDto getUserWithRolesDto() {
         UserWithRolesDto dto = new UserWithRolesDto();
         dto.setId(1L);
-        dto.setUserName("test_user");
+        dto.setUserName("test@example.com");
         dto.setEmail("test@example.com");
         dto.setFirstName("Test");
         dto.setLastName("User");

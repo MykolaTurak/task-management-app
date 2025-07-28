@@ -60,9 +60,8 @@ class UserServiceImplTest {
     void create_WithValidData_ShouldReturnValidDto() {
         UserDto expected = getUserDto();
 
-        when(userRepository.findByEmail(anyString()))
-                .thenReturn(Optional.empty()
-                );
+        when(userRepository.existsByEmail(anyString()))
+                .thenReturn(false);
         when(userMapper
                 .toModel(getUserRequestDto())).thenReturn(getFirstUser());
         when(roleRepository.findByName(any(RoleName.class)))
@@ -78,7 +77,7 @@ class UserServiceImplTest {
 
         assertEquals(expected, actual);
 
-        verify(userRepository).findByEmail(anyString());
+        verify(userRepository).existsByEmail(anyString());
         verify(userMapper).toModel(getUserRequestDto());
         verify(roleRepository).findByName(any(RoleName.class));
         verify(passwordEncoder).encode(anyString());
@@ -94,15 +93,15 @@ class UserServiceImplTest {
         String expectedMessage = "User with email: "
                 + getUserRequestDto().getEmail() + "already exist";
 
-        when(userRepository.findByEmail(anyString()))
-                .thenReturn(Optional.of(getFirstUser()));
+        when(userRepository.existsByEmail(anyString()))
+                .thenReturn(true);
 
         AuthenticationException actual = assertThrows(AuthenticationException.class,
                 () -> userService.create(getUserRequestDto()));
 
         assertEquals(expectedMessage, actual.getMessage());
 
-        verify(userRepository).findByEmail(anyString());
+        verify(userRepository).existsByEmail(anyString());
     }
 
     @Test
@@ -110,8 +109,8 @@ class UserServiceImplTest {
             create user with non exist role
             """)
     void create_WithNonExistRole_ShouldThrowException() {
-        when(userRepository.findByEmail(anyString()))
-                .thenReturn(Optional.empty());
+        when(userRepository.existsByEmail(anyString()))
+                .thenReturn(false);
         when(userMapper
                 .toModel(getUserRequestDto())).thenReturn(getFirstUser());
         when(roleRepository.findByName(any(RoleName.class)))
@@ -124,7 +123,7 @@ class UserServiceImplTest {
 
         assertEquals(expectedMessage, actual.getMessage());
 
-        verify(userRepository).findByEmail(anyString());
+        verify(userRepository).existsByEmail(anyString());
         verify(userMapper).toModel(getUserRequestDto());
         verify(roleRepository).findByName(any(RoleName.class));
     }

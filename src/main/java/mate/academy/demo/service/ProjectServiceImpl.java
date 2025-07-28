@@ -1,5 +1,6 @@
 package mate.academy.demo.service;
 
+import jakarta.transaction.Transactional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.project.CreateProjectRequestDto;
@@ -22,6 +23,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final VerificationService verificationService;
 
     @Override
+    @Transactional
     public ProjectDto save(CreateProjectRequestDto requestDto) {
         Project project = projectMapper.toModel(requestDto);
         User user = new User();
@@ -48,6 +50,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Transactional
     public ProjectDto update(CreateProjectRequestDto requestDto, Long id) {
         verificationService.isCurrentUserRelatedToProject(id);
 

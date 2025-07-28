@@ -1,0 +1,2 @@
+INSERT INTO projects (id, name, description, start_date, end_date, status, is_deleted) VALUES
+(1, 'Test Project', 'Project used for testing INSERTs', '2025-07-01 10:00:00', '2025-08-01 18:00:00', 1, 0);

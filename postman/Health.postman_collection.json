@@ -1,0 +1,19 @@
+{
+	"info": {
+		"_postman_id": "2a3355d0-ce79-40d2-940c-47a20025a833",
+		"name": "Health",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43662475",
+		"_collection_link": "https://mykola-1410393.postman.co/workspace/task-management-project~fed32b89-8ba7-48c1-a021-43a49ff0d4cc/collection/43662475-2a3355d0-ce79-40d2-940c-47a20025a833?action=share&source=collection_link&creator=43662475"
+	},
+	"item": [
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
