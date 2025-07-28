@@ -1,5 +1,6 @@
 package mate.academy.demo.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.task.CreateTaskRequestDto;
 import mate.academy.demo.dto.task.TaskDto;
@@ -22,6 +23,7 @@ public class TaskServiceImpl implements TaskService {
     private final TelegramNotificationService telegramNotificationService;
 
     @Override
+    @Transactional
     public TaskDto save(CreateTaskRequestDto taskRequestDto) {
         if (!projectService.existById(taskRequestDto.getProjectId())) {
             throw new EntityNotFoundException("Can't find project with id: "
@@ -67,6 +69,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public TaskDto update(CreateTaskRequestDto createTaskRequestDto, Long id) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(

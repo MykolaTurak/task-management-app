@@ -1,5 +1,6 @@
 package mate.academy.demo.service;
 
+import jakarta.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -30,9 +31,9 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationService authenticationService;
 
     @Override
+    @Transactional
     public UserDto create(CreateUserRequestDto userRequestDto) {
-        Optional<User> byEmail = userRepository.findByEmail(userRequestDto.getEmail());
-        if (byEmail.isPresent()) {
+        if (userRepository.existsByEmail(userRequestDto.getEmail())) {
             throw new AuthenticationException("User with email: "
             + userRequestDto.getEmail() + "already exist");
         }
@@ -66,6 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDto updateCurrentUser(CreateUserRequestDto requestDto) {
         User user = userRepository.findById(authenticationService.getCurrentUserId())
                 .orElseThrow(() -> new EntityNotFoundException(
@@ -79,6 +81,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserWithRolesDto changeUserRole(Long userId, UpdateRoleRequestDto requestDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException(

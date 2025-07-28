@@ -1,5 +1,6 @@
 package mate.academy.demo.service;
 
+import jakarta.transaction.Transactional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class LabelServiceImpl implements LabelService {
     private final VerificationService verificationService;
 
     @Override
+    @Transactional
     public LabelDto save(CreateLabelRequestDto requestDto) {
         for (Long projectId: requestDto.getProjectsId()) {
             verificationService.isCurrentUserRelatedToProject(projectId);
@@ -44,6 +46,7 @@ public class LabelServiceImpl implements LabelService {
     }
 
     @Override
+    @Transactional
     public LabelDto update(CreateLabelRequestDto requestDto, Long id) {
         for (Long projectId: requestDto.getProjectsId()) {
             verificationService.isCurrentUserRelatedToProject(projectId);

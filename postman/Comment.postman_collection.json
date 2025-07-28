@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "f564914b-b33f-40f2-aa0a-c0721f06bdc9",
+		"name": "Comment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43662475",
+		"_collection_link": "https://mykola-1410393.postman.co/workspace/task-management-project~fed32b89-8ba7-48c1-a021-43a49ff0d4cc/collection/43662475-f564914b-b33f-40f2-aa0a-c0721f06bdc9?action=share&source=collection_link&creator=43662475"
+	},
+	"item": [
+		{
+			"name": "findAllByTaskId",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "save",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/comments",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJib2IuZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUyNjczNTYyLCJleHAiOjE3NTI2NzcxNjJ9.0XkDwQvEqx8_uZyu0aGaK8ubXCHikSNMM5RNZQi1U8MoUqVnMfqzmQWV0MRZo3iU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/comments/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"comments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
