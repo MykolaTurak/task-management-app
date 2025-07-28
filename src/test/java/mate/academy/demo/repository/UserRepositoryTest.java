@@ -3,6 +3,8 @@ package mate.academy.demo.repository;
 import static mate.academy.demo.util.TestUtil.getFirstUser;
 import static mate.academy.demo.util.TestUtil.getThirdUser;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Optional;
 import mate.academy.demo.model.User;
@@ -50,6 +52,30 @@ class UserRepositoryTest {
         Optional<User> actual = userRepository.findByEmail(NON_EXIST_EMAIL);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @Sql(scripts = "classpath:db/scripts/create-entities.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(scripts = "classpath:db/scripts/delete-entities.sql",
+            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    @DisplayName("""
+            Check if user exist by email
+            """)
+    void existsByEmail_WithValidEmail_ShouldReturnTrue() {
+        boolean actual = userRepository.existsByEmail(getFirstUser().getEmail());
+
+        assertTrue(actual);
+    }
+
+    @Test
+    @DisplayName("""
+            Check if user exist by non exist email
+            """)
+    void existsByEmail_WithNotValidEmail_ShouldReturnFalse() {
+        boolean actual = userRepository.existsByEmail(getFirstUser().getEmail());
+
+        assertFalse(actual);
     }
 
     @Test

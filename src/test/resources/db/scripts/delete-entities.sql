@@ -1,19 +1,17 @@
-DELETE FROM attachments WHERE id IN (1, 2, 3, 4);
+DELETE FROM attachments;
 
-DELETE FROM comments WHERE id IN (1, 2, 3, 4);
+DELETE FROM comments;
 
-DELETE FROM users_roles WHERE user_id IN (1, 2, 3);
+DELETE FROM users_roles;
 
-DELETE FROM users_projects WHERE user_id IN (1, 2, 3) OR project_id IN (1, 2, 3);
+DELETE FROM users_projects;
 
-DELETE FROM labels_projects WHERE label_id IN (1, 2, 3, 4) OR project_id IN (1, 2, 3);
+DELETE FROM labels_projects;
 
-DELETE FROM tasks WHERE id IN (1, 2, 3, 4);
+DELETE FROM tasks;
 
-DELETE FROM labels WHERE id IN (1, 2, 3, 4);
+DELETE FROM labels;
 
-DELETE FROM projects WHERE id IN (1, 2, 3);
+DELETE FROM projects;
 
-DELETE FROM users WHERE id IN (1, 2, 3);
-
-DELETE FROM roles WHERE id IN (1, 2, 3);
+DELETE FROM users;

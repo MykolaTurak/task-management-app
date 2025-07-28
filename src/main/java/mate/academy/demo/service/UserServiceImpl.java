@@ -2,7 +2,6 @@ package mate.academy.demo.service;
 
 import jakarta.transaction.Transactional;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import mate.academy.demo.dto.role.UpdateRoleRequestDto;

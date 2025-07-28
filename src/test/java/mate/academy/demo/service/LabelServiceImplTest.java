@@ -1,7 +1,7 @@
 package mate.academy.demo.service;
 
 import static mate.academy.demo.util.TestUtil.getFirstLabel;
-import static mate.academy.demo.util.TestUtil.getLabelDto;
+import static mate.academy.demo.util.TestUtil.getFirstLabelDto;
 import static mate.academy.demo.util.TestUtil.getLabelRequestDto;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
@@ -48,10 +48,10 @@ class LabelServiceImplTest {
     void save_WithValidRequestDto_ShouldReturnValidDto() {
         when(projectService.existById(anyLong())).thenReturn(true);
         when(labelMapper.toModel(getLabelRequestDto())).thenReturn(getFirstLabel());
-        when(labelMapper.toDto(getFirstLabel())).thenReturn(getLabelDto());
+        when(labelMapper.toDto(getFirstLabel())).thenReturn(getFirstLabelDto());
         when(labelRepository.save(getFirstLabel())).thenReturn(getFirstLabel());
 
-        LabelDto expected = getLabelDto();
+        LabelDto expected = getFirstLabelDto();
 
         LabelDto actual = labelService.save(getLabelRequestDto());
 
@@ -88,12 +88,12 @@ class LabelServiceImplTest {
             """)
     void findAllByProjectId_WithValidId_ShouldReturnValidPage() {
         Pageable pageable = PageRequest.of(0, 10);
-        Page<LabelDto> expected = new PageImpl<>(List.of(getLabelDto()), pageable, 1);
+        Page<LabelDto> expected = new PageImpl<>(List.of(getFirstLabelDto()), pageable, 1);
 
         Long projectId = 1L;
         Page<Label> labels = new PageImpl<>(List.of(getFirstLabel()), pageable, 1);
         when(labelRepository.findAllByProjectId(1L, pageable)).thenReturn(labels);
-        when(labelMapper.toDto(getFirstLabel())).thenReturn(getLabelDto());
+        when(labelMapper.toDto(getFirstLabel())).thenReturn(getFirstLabelDto());
 
         Page<LabelDto> actual = labelService.findAllByProjectId(1L, pageable);
 
@@ -112,9 +112,9 @@ class LabelServiceImplTest {
         Long labelId = 1L;
         when(labelRepository.findById(labelId)).thenReturn(Optional.of(getFirstLabel()));
         when(labelRepository.save(getFirstLabel())).thenReturn(getFirstLabel());
-        when(labelMapper.toDto(getFirstLabel())).thenReturn(getLabelDto());
+        when(labelMapper.toDto(getFirstLabel())).thenReturn(getFirstLabelDto());
 
-        LabelDto expected = getLabelDto();
+        LabelDto expected = getFirstLabelDto();
 
         LabelDto actual = labelService.update(getLabelRequestDto(), labelId);
 
